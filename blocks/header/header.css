@@ -1,0 +1,15 @@
+.header {
+    width: calc(320px - 0.58333*(320px - 100vw));
+    height: 74px;
+    margin: 45px auto 40px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 767px) {
+    .header {
+        height: 56px;
+        margin: 28px auto 42px auto;
+    }
+}
