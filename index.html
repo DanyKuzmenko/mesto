@@ -7,10 +7,27 @@
     <link rel="stylesheet" href="./pages/index.css">
     <title>Место</title>
 </head>
-<body class="page">
-    <header class="header">
-        <img src="./images/Vector.svg" alt="Логотип Mesto." class="header__image">
-        <hr class="header__line"></hr>
-    </header>
+<body class="root">
+    <div class="page">
+        <header class="header">
+            <img src="./images/Vector.svg" alt="Логотип Mesto." class="header__image">
+            <hr class="header__line"></hr>
+        </header>
+        <main class="content">
+            <section class="profile">
+                <div class="profile__position">
+                    <img src="./images/Avatar.png" alt="Жак-Ив Кусто в центре фото, на заднем плане море." class="profile__avatar">
+                        <div class="profile__info">
+                            <div class="profile__info-position">
+                                <p class="profile__name">Жак-Ив Кусто</p>
+                                <p class="profile__activity">Исследователь океана</p>
+                            </div>
+                            <button class="profile__edit-button"></button>
+                        </div>
+                </div>
+                <button class="profile__add-button"></button>
+            </section>
+        </main>
+    </div>
 </body>
 </html>
