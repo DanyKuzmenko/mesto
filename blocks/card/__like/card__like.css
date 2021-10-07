@@ -4,4 +4,14 @@
     background-image: url('../../../images/heart.svg');
     border: hidden;
     background-color: #fff;
+    transition: 1s;
+}
+
+.card__like:hover {
+    opacity: .5;
+}
+
+.card__like:active {
+    background-color: #000;
+    /* подготовил активную иконку для последующих практических */
 }
