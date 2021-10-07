@@ -20,4 +20,4 @@
 ## Ссылка на GitHub
 Ссылки:  
 * GitHub профиль: https://github.com/DanyKuzmenko
-* GitHub проект: 
+* GitHub проект: https://danykuzmenko.github.io/mesto/index.html
