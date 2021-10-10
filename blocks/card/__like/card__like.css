@@ -5,6 +5,7 @@
     border: hidden;
     background-color: #fff;
     transition: 1s;
+    cursor: pointer;
 }
 
 .card__like:hover {

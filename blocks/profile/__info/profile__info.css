@@ -1,7 +1,6 @@
 .profile__info {
     max-width: 336px;
     width: calc(270px - 0.12891*(768px - 100vw));
-    height: 73px;
     display: flex;
     justify-content: space-between;
 }
@@ -10,7 +9,6 @@
     .profile__info {
         width: calc(270px + 0.02685*(767px - 100vw));
         justify-content: center;
-        height: 54px;
         margin: 0 0 36px 0;
     }
 }

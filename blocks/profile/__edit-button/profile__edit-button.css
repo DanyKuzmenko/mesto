@@ -9,6 +9,7 @@
     background-position: center;
     border: 1px solid #fff;
     transition: 1s;
+    cursor: pointer;
 }
 
 .profile__edit-button:hover {

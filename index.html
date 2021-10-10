@@ -11,7 +11,6 @@
     <div class="page">
         <header class="header">
             <img src="./images/Vector.svg" alt="Логотип Mesto." class="header__image">
-            <hr class="header__line">
         </header>
         <main class="content">
             <section class="profile">
@@ -19,70 +18,55 @@
                     <img src="./images/Avatar.png" alt="Жак-Ив Кусто в центре фото, на заднем плане море." class="profile__avatar">
                         <div class="profile__info">
                             <div class="profile__info-position">
-                                <p class="profile__name">Жак-Ив Кусто</p>
+                                <h1 class="profile__name">Жак-Ив Кусто</h1>
                                 <p class="profile__activity">Исследователь океана</p>
                             </div>
-                            <button class="profile__edit-button"></button>
+                            <button type="button" aria-label="Редактировать профиль." class="profile__edit-button"></button>
                         </div>
                 </div>
-                <button class="profile__add-button"></button>
-            </section>
-            <section class="popup">
-                <div class="popup__container">
-                    <img src="./images/CloseIcon.svg" alt="Кнопка закрытия окна." class="popup__close-icon">
-                    <h2 class="popup__title">Редактировать профиль</h2>
-                    <div class="popup__field">
-                        <input type="text" class="popup__name" value="Жак-Ив Кусто">
-                        <img src="./images/Line-popup.svg" alt="Линия внизу поля." class="popup__line">
-                    </div>
-                    <div class="popup__field">
-                        <input type="text" class="popup__activity" value="Исследователь океана">
-                        <img src="./images/Line-popup.svg" alt="Линия внизу поля." class="popup__line">
-                    </div>
-                    <button class="popup__button">Сохранить</button>
-                </div>
+                <button type="button" aria-label="Добавить карточку." class="profile__add-button"></button>
             </section>
             <section class="cards">
                 <article class="card">
                     <img src="./images/Eibsee.jpg" alt="Вид на озеро, за озером находятся горы, вокруг озера расположен лес." class="card__image">
                     <div class="card__body">
                         <h2 class="card__title">Озеро Эйбси</h2>
-                        <button class="card__like"></button>
+                        <button type="button" aria-label="Добавить в любимые." class="card__like"></button>
                     </div>
                 </article>
                 <article class="card">
                     <img src="./images/Palase.jpg" alt="Вид сверху на береговую линию, море голубое." class="card__image">
                     <div class="card__body">
                         <h2 class="card__title">Палас, Албания</h2>
-                        <button class="card__like"></button>
+                        <button type="button" aria-label="Добавить в любимые." class="card__like"></button>
                     </div>
                 </article>
                 <article class="card">
                     <img src="./images/SantaCruzMountains.jpg" alt="Человек стоит на горе и смотрит на закат с облаками." class="card__image">
                     <div class="card__body">
                         <h2 class="card__title">Горы Санта Круз</h2>
-                        <button class="card__like"></button>
+                        <button type="button" aria-label="Добавить в любимые." class="card__like"></button>
                     </div>
                 </article>
                 <article class="card">
                     <img src="./images/Sylf.jpg" alt="Береговая линия с волнорезами." class="card__image">
                     <div class="card__body">
                         <h2 class="card__title">Силт, Германия</h2>
-                        <button class="card__like"></button>
+                        <button type="button" aria-label="Добавить в любимые." class="card__like"></button>
                     </div>
                 </article>
                 <article class="card">
                     <img src="./images/VernalFalls.jpg" alt="Вид снизу на скалу и водопад. На вверху скалы растут деревья." class="card__image">
                     <div class="card__body">
                         <h2 class="card__title">Водопад Вернал</h2>
-                        <button class="card__like"></button>
+                        <button type="button" aria-label="Добавить в любимые." class="card__like"></button>
                     </div>
                 </article>
                 <article class="card">
                     <img src="./images/Whytecliff.jpg" alt="Вид на небольшой холм и звездное небо." class="card__image">
                     <div class="card__body">
                         <h2 class="card__title">Парк Вайтклифф</h2>
-                        <button class="card__like"></button>
+                        <button type="button" aria-label="Добавить в любимые." class="card__like"></button>
                     </div>
                 </article>
             </section>
@@ -90,6 +74,17 @@
         <footer class="footer">
             <p class="footer__copyright">© 2020 Mesto Russia</p>
         </footer>
+        <div class="popup">
+            <div class="popup__container">
+                <button type="button" aria-label="Закрыть форму." class="popup__close-button"></button>
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form class="popup__form">
+                    <input type="text" class="popup__input" value="Жак-Ив Кусто">
+                    <input type="text" class="popup__input" value="Исследователь океана">
+                    <button type="submit" aria-label="Сохранить." class="popup__button">Сохранить</button>
+                </form>
+            </div>
+        </div>
     </div>
     <script src="./script.js"></script>
 </body>
