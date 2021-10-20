@@ -1,0 +1,28 @@
+.popup-card__input {
+    margin: 0 36px 30px 36px;
+    padding: 0 0 13px 0;
+    width: 358px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #C4C4C4;
+    font-family: inherit;
+}
+
+.popup-card__input:last-of-type {
+    margin: 0 36px;
+}
+
+@media screen and (max-width: 767px) {
+    .popup-card__input {
+        margin: 0 22px 30px 22px;
+        width: 238px;
+    }
+
+    .popup-card__input:last-of-type {
+        margin: 0 22px;
+    }
+}
