@@ -1,3 +1,13 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector('.profile__edit-button');
 const profileName = profile.querySelector('.profile__name');
@@ -20,6 +30,8 @@ const popupImage = popupTypeImage.querySelector('.popup__image');
 const popupTypeImageFigcaption = popupTypeImage.querySelector('.popup__figcaption_type_image');
 const popupTypeImageCloseButton = popupTypeImage.querySelector('.popup__close-button_type_image');
 const popupCardButton = popupCard.querySelector('.popup__button');
+const profileFormValidator = new FormValidator(config, popupProfileForm);
+const cardFormValidator = new FormValidator(config, popupCardForm);
 function openPopup(elem) {
   elem.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscPressed);
@@ -62,42 +74,16 @@ function submitProfileHandler (evt) {
   profileActivity.textContent = popupActivity.value;
   closePopup(popupProfile);
 }
-function deleteCard(elem) {
-  elem.querySelector('.card__delete-icon').addEventListener('click', () => {
-    elem.remove();
-  })
-}
-function likeCard(elem) {
-  const like = elem.querySelector('.card__like');
-  like.addEventListener('click', () => {
-    like.classList.toggle('card__like_active');
-  })
-}
-function setImage(elem, item) {
-  const popupTitle = elem.querySelector('.card__title');
-  popupImage.src = item.link;
-  popupImage.alt = item.name;
+function setImage(element, title, image) {
+  const popupTitle = element.querySelector('.card__title');
+  popupImage.src = image;
+  popupImage.alt = title;
   popupTypeImageFigcaption.innerText = popupTitle.innerText;
 }
-function createCard(item) {
-  const element = templateItem.querySelector('.card').cloneNode(true);
-  // я не вынес элемент в global scope, потому что он создается каждый раз новый. 
-  //Если вынесу то добавится только 1 карточка
-  element.querySelector('.card__title').innerText = item.name;
-  const cardImage = element.querySelector('.card__image');
-  cardImage.src = item.link;
-  cardImage.alt = item.name;
-  deleteCard(element);
-  likeCard(element);
-  element.querySelector('.card__image').addEventListener('click', ()=>{
-    openPopup(popupTypeImage);
-    setImage(element, item);
-  })
-  return element;
-}
 function prependCard(item) {
-  const element = createCard(item);
-  listElement.prepend(element);
+  const element = new Card(item.name, item.link, templateItem, openPopup, popupTypeImage, setImage);
+  const card = element.createCard();
+  listElement.prepend(card);
 }
 function disableCardFormButton () {
   popupCardButton.setAttribute('disabled', '');
@@ -132,3 +118,5 @@ popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
 initialCards.forEach(prependCard);
 popupCardForm.addEventListener('submit', cardSubmitHandler);
 popupTypeImageCloseButton.addEventListener('click', () => closePopup(popupTypeImage));
+profileFormValidator.enableValidation();
+cardFormValidator.enableValidation();
