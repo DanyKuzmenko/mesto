@@ -46,6 +46,23 @@ class FormValidator {
         })
     }
 
+    deletePopupErrors(){
+        this._inputs = Array.from(this._form.querySelectorAll('.popup__input'));
+        this._errors = Array.from(this._form.querySelectorAll('.popup__error'));
+        this._inputs.forEach((input) => {
+            input.classList.remove('popup__input_type_error');
+        })
+        this._errors.forEach((error) => {
+            error.classList.remove('popup__error_visible');
+        })
+    }
+
+    disableFormButton(){
+        this._popupButton = this._form.querySelector('.popup__button');
+        this._popupButton.setAttribute('disabled', '');
+        this._popupButton.classList.add('popup__button_disabled');
+    }
+
     enableValidation(){
         this._setEventListeners();
         this._handleInputs();
