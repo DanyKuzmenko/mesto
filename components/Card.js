@@ -1,12 +1,9 @@
 class Card {
-    constructor(title, image, templateItem, openPopup, popupTypeImage, popupImage, popupTypeImageFigcaption){
+    constructor(title, image, templateItem, handleCardClick){
         this._templateItem = templateItem;
         this._title = title;
         this._image = image;
-        this._openPopup = openPopup;
-        this._popupTypeImage = popupTypeImage;
-        this._popupImage = popupImage;
-        this._popupTypeImageFigcaption = popupTypeImageFigcaption;
+        this._handleCardClick = handleCardClick;
     }
     
     _deleteCard(){
@@ -17,18 +14,8 @@ class Card {
         this._element.querySelector('.card__like').classList.toggle('card__like_active');
     }
 
-    _setImage(){
-        this._popupTitle = this._element.querySelector('.card__title');
-        this._popupImage.src = this._image;
-        this._popupImage.alt = this._title;
-        this._popupTypeImageFigcaption.innerText = this._popupTitle.innerText;
-    }
-
     _setEventListeners(){
-        this._element.querySelector('.card__image').addEventListener('click', () => {
-            this._openPopup(this._popupTypeImage);
-            this._setImage();
-        });
+        this._element.querySelector('.card__image').addEventListener('click', () => this._handleCardClick(this._title, this._image));
         this._element.querySelector('.card__delete-icon').addEventListener('click', () => this._deleteCard());
         this._element.querySelector('.card__like').addEventListener('click', () => this._likeCard())
     }

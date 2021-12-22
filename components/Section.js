@@ -8,4 +8,10 @@ class Section {
     addItem(element){
         this._containerSelector.append(element);
     }
+
+    renderItems(){
+        this._items.forEach(item => {
+            this._renderer(item);
+        })
+    }
 }
