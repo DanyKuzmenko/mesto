@@ -2,12 +2,17 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import { initialCards } from "../utils/constants.js";
+import { config } from "../utils/constants.js";
+import {popupProfileForm, popupProfile, editButton, popupCloseButton, addButton, popupCardCloseButton,
+   listElement, popupTypeImageCloseButton, popupTypeImage, popupName, profileName, popupActivity,
+  profileActivity} from "../utils/constants.js";
 
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const popupClassProfile = new PopupWithForm(popupProfile, {
   submitForm: (formValues) => {
-    
+    console.log(formValues);
   }
 });
 function handleCardClick(title, image){
@@ -72,9 +77,9 @@ window.addEventListener('load', ()=>{
 editButton.addEventListener('click', () => {
   setPopupValue();
   profileFormValidator.deletePopupErrors();
-  openPopup(popupProfile);
+  popupClassProfile.open();
 });
-popupCloseButton.addEventListener('click', () => closePopup(popupProfile));
+popupCloseButton.addEventListener('click', () => popupClassProfile.close());
 popupProfileForm.addEventListener('submit', submitProfileHandler);
 addButton.addEventListener('click', () => {
   popupCardForm.reset();
