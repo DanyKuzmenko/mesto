@@ -57,13 +57,11 @@ window.addEventListener('load', ()=>{
 })
 editButton.addEventListener('click', () => {
   setPopupValue();
-  profileFormValidator.deletePopupErrors();
-  profileFormValidator.disableFormButton();
+  profileFormValidator.resetValidation();
   popupClassProfile.open();
 });
 addButton.addEventListener('click', () => {
-  cardFormValidator.deletePopupErrors();
-  cardFormValidator.disableFormButton();
+  cardFormValidator.resetValidation();
   popupClassCard.open();
 });
 popupWithImage.setEventListeners();

@@ -46,19 +46,11 @@ class FormValidator {
         })
     }
 
-    deletePopupErrors(){
-        this._errors = Array.from(this._form.querySelectorAll(this._config.spanErrorClass));
+    resetValidation(){
+        this._setButtonState();
         this._inputs.forEach((input) => {
-            input.classList.remove(this._config.inputErrorClass);
+            this._hideInputError(input);
         })
-        this._errors.forEach((error) => {
-            error.classList.remove(this._config.errorClass);
-        })
-    }
-
-    disableFormButton(){
-        this._button.setAttribute('disabled', '');
-        this._button.classList.add(this._config.inactiveButtonClass);
     }
 
     enableValidation(){
