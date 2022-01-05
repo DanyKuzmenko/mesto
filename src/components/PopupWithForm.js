@@ -5,10 +5,10 @@ export default class PopupWithForm extends Popup{
         super(popupSelector);
         this._submitForm = submitForm; //сабмит попапа, колбэк функция
         this._form = this._popupElement.querySelector('.popup__form');
+        this._inputList = this._popupElement.querySelectorAll('.popup__input');
     }
 
     _getInputValues(){ // берет значения инпутов
-        this._inputList = this._popupElement.querySelectorAll('.popup__input');
         this._formValues = {};
         this._inputList.forEach(input => {
             this._formValues[input.name] = input.value;
@@ -25,8 +25,7 @@ export default class PopupWithForm extends Popup{
     }
 
     close(){
-        this._popupElement.classList.remove('popup_opened');
-        document.removeEventListener('keydown', () => super._handleEscClose());
+        super.close();
         this._form.reset();
     }
 }

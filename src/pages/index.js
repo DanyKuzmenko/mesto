@@ -5,7 +5,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import { initialCards } from "../utils/constants.js";
 import { config } from "../utils/constants.js";
-import {popupProfileForm, editButton, addButton, 
+import {popupProfileForm, editButton, addButton, popupCardForm,
   popupName, popupActivity} from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
@@ -14,6 +14,7 @@ const userInfoClass = new UserInfo({
   name:'.profile__name', 
   info: '.profile__activity'
 });
+const popupWithImage = new PopupWithImage('.popup_type_image');
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const popupClassProfile = new PopupWithForm('.popup_type_profile', {
@@ -39,7 +40,6 @@ const cardsList = new Section({
   }
 }, '.cards');
 function handleCardClick(title, image){
-  const popupWithImage = new PopupWithImage('.popup_type_image');
   popupWithImage.open(title, image);
 }
 function createCard(card){
@@ -66,6 +66,7 @@ addButton.addEventListener('click', () => {
   cardFormValidator.disableFormButton();
   popupClassCard.open();
 });
+popupWithImage.setEventListeners();
 popupClassProfile.setEventListeners();
 popupClassCard.setEventListeners();
 cardsList.renderItems();

@@ -11,13 +11,13 @@ export default class Card {
     }
 
     _likeCard(){
-        this._element.querySelector('.card__like').classList.toggle('card__like_active');
+        this._likeButton.classList.toggle('card__like_active');
     }
 
     _setEventListeners(){
-        this._element.querySelector('.card__image').addEventListener('click', () => this._handleCardClick(this._title, this._image));
+        this._cardImage.addEventListener('click', () => this._handleCardClick(this._title, this._image));
         this._element.querySelector('.card__delete-icon').addEventListener('click', () => this._deleteCard());
-        this._element.querySelector('.card__like').addEventListener('click', () => this._likeCard())
+        this._likeButton.addEventListener('click', () => this._likeCard())
     }
 
     _getTemplate(){
@@ -31,10 +31,12 @@ export default class Card {
 
     createCard(){
         this._element = this._getTemplate();
+        this._likeButton = this._element.querySelector('.card__like');
+        this._cardImage = this._element.querySelector('.card__image');
         this._setEventListeners();
         this._element.querySelector('.card__title').innerText = this._title;
-        this._element.querySelector('.card__image').src = this._image;
-        this._element.querySelector('.card__image').alt = this._title;
+        this._cardImage.src = this._image;
+        this._cardImage.alt = this._title;
         return this._element;
     }
 }

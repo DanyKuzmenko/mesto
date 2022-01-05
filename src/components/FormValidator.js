@@ -2,6 +2,8 @@ class FormValidator {
     constructor(config, form){
         this._config = config;
         this._form = form;
+        this._button = this._form.querySelector(this._config.submitButtonSelector);
+        this._inputs = Array.from(this._form.querySelectorAll(this._config.inputSelector));
     }
 
     _showInputError(inputElem){
@@ -27,7 +29,6 @@ class FormValidator {
     }
 
     _setButtonState(){
-        this._button = this._form.querySelector(this._config.submitButtonSelector);
         this._button.disabled = !this._form.checkValidity();
         this._button.classList.toggle(this._config.inactiveButtonClass, !this._form.checkValidity());
     }
@@ -38,7 +39,6 @@ class FormValidator {
     }
 
     _handleInputs(){
-        this._inputs = Array.from(this._form.querySelectorAll(this._config.inputSelector));
         this._inputs.forEach((inputElem) => {
             inputElem.addEventListener('input', () => {
                 this._isValid(inputElem);
@@ -47,20 +47,18 @@ class FormValidator {
     }
 
     deletePopupErrors(){
-        this._inputs = Array.from(this._form.querySelectorAll('.popup__input'));
-        this._errors = Array.from(this._form.querySelectorAll('.popup__error'));
+        this._errors = Array.from(this._form.querySelectorAll(this._config.spanErrorClass));
         this._inputs.forEach((input) => {
-            input.classList.remove('popup__input_type_error');
+            input.classList.remove(this._config.inputErrorClass);
         })
         this._errors.forEach((error) => {
-            error.classList.remove('popup__error_visible');
+            error.classList.remove(this._config.errorClass);
         })
     }
 
     disableFormButton(){
-        this._popupButton = this._form.querySelector('.popup__button');
-        this._popupButton.setAttribute('disabled', '');
-        this._popupButton.classList.add('popup__button_disabled');
+        this._button.setAttribute('disabled', '');
+        this._button.classList.add(this._config.inactiveButtonClass);
     }
 
     enableValidation(){
