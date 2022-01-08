@@ -6,7 +6,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import { initialCards } from "../utils/constants.js";
 import { config } from "../utils/constants.js";
 import {popupProfileForm, editButton, addButton, popupCardForm,
-  popupName, popupActivity} from "../utils/constants.js";
+  popupName, popupActivity, profileImage, popupAvatarForm} from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 
@@ -17,6 +17,7 @@ const userInfoClass = new UserInfo({
 const popupWithImage = new PopupWithImage('.popup_type_image');
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const cardFormValidator = new FormValidator(config, popupCardForm);
+const popupAvatarFormValidator = new FormValidator(config, popupAvatarForm);
 const popupClassProfile = new PopupWithForm('.popup_type_profile', {
   submitForm: (formValues) => {
     userInfoClass.setUserInfo(formValues.inputName, formValues.inputActivity);
@@ -33,6 +34,12 @@ const popupClassCard = new PopupWithForm('.popup_type_card', {
     popupClassCard.close();
   }
 });
+const popupClassAvatar = new PopupWithForm('.popup_type_update-avatar', {
+  submitForm: (formValues) => {
+    profileImage.src = formValues.inputAvatarLink;
+    popupClassAvatar.close();
+  }
+})
 const cardsList = new Section({
   items: initialCards,
   renderer: (item) => {
@@ -55,6 +62,10 @@ function setPopupValue() {
 window.addEventListener('load', ()=>{
   document.querySelectorAll('.popup').forEach((popup) => popup.classList.add('popup_transition'))
 })
+profileImage.addEventListener('click', () => {
+  popupAvatarFormValidator.resetValidation(); //доделать валидацию формы
+  popupClassAvatar.open();
+})
 editButton.addEventListener('click', () => {
   setPopupValue();
   profileFormValidator.resetValidation();
@@ -64,9 +75,11 @@ addButton.addEventListener('click', () => {
   cardFormValidator.resetValidation();
   popupClassCard.open();
 });
+popupClassAvatar.setEventListeners();
 popupWithImage.setEventListeners();
 popupClassProfile.setEventListeners();
 popupClassCard.setEventListeners();
 cardsList.renderItems();
+popupAvatarFormValidator.enableValidation();
 profileFormValidator.enableValidation();
 cardFormValidator.enableValidation();
