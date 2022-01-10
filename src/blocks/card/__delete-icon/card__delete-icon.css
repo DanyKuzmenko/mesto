@@ -12,7 +12,6 @@
     z-index: 1;
     transition: 1s;
     cursor: pointer;
-    visibility: hidden;
 }
 
 .card__delete-icon:hover {
