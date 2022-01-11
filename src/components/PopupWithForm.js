@@ -6,6 +6,7 @@ export default class PopupWithForm extends Popup{
         this._submitForm = submitForm; //сабмит попапа, колбэк функция
         this._form = this._popupElement.querySelector('.popup__form');
         this._inputList = this._popupElement.querySelectorAll('.popup__input');
+        this._formButton = this._popupElement.querySelector('.popup__button');
     }
 
     _getInputValues(){ // берет значения инпутов
@@ -19,7 +20,7 @@ export default class PopupWithForm extends Popup{
     setEventListeners(){
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            this._submitForm(this._getInputValues());
+            this._submitForm(this._getInputValues(), this._formButton);
         });
         super.setEventListeners();
     }

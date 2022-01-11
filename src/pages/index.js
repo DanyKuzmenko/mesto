@@ -27,48 +27,56 @@ const popupCardDelete = new PopupCardDelete({
   popupSelector: '.popup_type_delete-card', 
   handleFormSubmit: (cardId, element) => {
     api.deleteApiCard(cardId)
+      .then(() => {
+        element.remove();
+        popupCardDelete.close();
+      })
       .catch(err => console.log(err));
-    element.remove();
-    popupCardDelete.close();
   }
 })
 const popupClassProfile = new PopupWithForm('.popup_type_profile', {
-  submitForm: (formValues) => {
-    renderLoading(true);
+  submitForm: (formValues, formButton) => {
+    renderLoading(true, formButton);
     api.sendUserApiInfo(formValues.inputName, formValues.inputActivity)
+      .then(() => {
+        userInfoClass.setUserInfo(formValues.inputName, formValues.inputActivity);
+        popupClassProfile.close();
+      })
       .catch(err => console.log(err))
-      .finally(renderLoading(false));
-    userInfoClass.setUserInfo(formValues.inputName, formValues.inputActivity);
-    popupClassProfile.close();
+      .finally(() => renderLoading(false, formButton));
   }
 });
 const popupClassCard = new PopupWithForm('.popup_type_card', {
-  submitForm: (formValues) => {
-    renderLoading(true);
-    const data = userInfoClass.getUserInfo();
+  submitForm: (formValues, formButton) => {
+    formButton.textContent = 'Создание...'; // здесь не использовал функцию renderLoading, потому что текст другой
     const item = {
       name: formValues.inputCardName,
-      link: formValues.inputCardLink,
-      owner: {
-      _id: data.id
-      },
-      likes: []
+      link: formValues.inputCardLink
     }
     api.sendCardInfo(item.name, item.link)
+      .then((res) => {
+        item.owner = {
+          _id: res.owner._id
+        }
+        item.likes = res.likes;
+        item._id = res._id;
+        cardsList.prependItem(createCard(item));
+        popupClassCard.close();
+      })
       .catch(err => console.log(err))
-      .finally(renderLoading(false));
-    cardsList.prependItem(createCard(item));
-    popupClassCard.close();
+      .finally(() => formButton.textContent = 'Создать');
   }
 });
 const popupClassAvatar = new PopupWithForm('.popup_type_update-avatar', {
-  submitForm: (formValues) => {
-    renderLoading(true);
-    profileImage.src = formValues.inputAvatarLink;
+  submitForm: (formValues, formButton) => {
+    renderLoading(true, formButton);
     api.updateAvatar(formValues.inputAvatarLink)
+      .then(() => {
+        profileImage.src = formValues.inputAvatarLink;
+        popupClassAvatar.close();
+      })
       .catch(err => console.log(err))
-      .finally(renderLoading(false));
-    popupClassAvatar.close();
+      .finally(() => renderLoading(false, formButton));
   }
 })
 const cardsList = new Section({
@@ -76,11 +84,11 @@ const cardsList = new Section({
     cardsList.addItem(createCard(item));
   }
 }, '.cards');
-function renderLoading(isLoading) {
+function renderLoading(isLoading, formButton) {
   if (isLoading) {
-    popupButton.textContent = 'Сохранение';
+    formButton.textContent = 'Сохранение...';
   } else {
-    popupButton.textContent = "Сохранить";
+    formButton.textContent = "Сохранить";
   }
 }
 function handleCardClick(title, image){
@@ -91,11 +99,9 @@ function createCard(card){
   const element = new Card(card, '.template', handleCardClick, popupDeleteCardForm, popupCardDelete, userId, {
     cardLike: (cardId) => {
       return api.likeCard(cardId)
-        .catch(err => console.log(err));
     },
     cardDislike: (cardId) => {
       return api.deleteLikeCard(cardId)
-        .catch(err => console.log(err));
     }
   });
   const cardElement = element.createCard();

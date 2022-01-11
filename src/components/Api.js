@@ -4,18 +4,20 @@ export default class Api {
     this._token = token;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
+  }
+
   getInitialCards() {
     return fetch(`${this._address}/cards`, {
       headers: {
         authorization: this._token
       }
     })
-      .then(res => {
-        if(res.ok){
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
+      .then(this._checkResponse)
   }
 
   getUserApiInfo() {
@@ -24,12 +26,7 @@ export default class Api {
         authorization: this._token
       }
   })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
+      .then(this._checkResponse)
   }
 
   sendUserApiInfo(userName, userActivity) {
@@ -58,6 +55,7 @@ export default class Api {
         link: cardLink
       })
     })
+    .then(this._checkResponse)
   }
 
   deleteApiCard(cardId) {
@@ -77,11 +75,7 @@ export default class Api {
         'Content-Type' : 'application/json'
       }
     })
-      .then(res => {
-        if(res.ok) {
-          return res.json();
-        }
-      })
+      .then(this._checkResponse)
   }
 
   deleteLikeCard(cardId) {
@@ -91,11 +85,7 @@ export default class Api {
         authorization: this._token
       }
     })
-      .then(res => {
-        if(res.ok) {
-          return res.json();
-        }
-      })
+      .then(this._checkResponse)
   }
 
   updateAvatar(link) {

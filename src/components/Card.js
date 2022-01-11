@@ -17,23 +17,28 @@ export default class Card {
     _likeCard(){ // при лайке отправляет запрос через колбэк, и увеличивает кол-во лайков
         // при дизлайке отправляет запрос через колбэк, и уменьшает кол-во лайкой
         if(this._likeButton.classList.contains('card__like_active')){
-            this._likeButton.classList.remove('card__like_active');
             this._cardDislike(this._cardId)
                 .then(res => {
                     this._numberOfLikes.textContent = res.likes.length;
+                    this._likeButton.classList.remove('card__like_active');
                 })
+                .catch(err => console.log(err))
         } else {
             this._cardLike(this._cardId)
                 .then(res => {
                     this._numberOfLikes.textContent = res.likes.length;
+                    this._likeButton.classList.add('card__like_active');
                 })
-            this._likeButton.classList.add('card__like_active');
+                .catch(err => console.log(err))
         }
     }
 
     _setEventListeners(){
         this._cardImage.addEventListener('click', () => this._handleCardClick(this._title, this._image));
         this._likeButton.addEventListener('click', () => this._likeCard());
+        if (this._deleteCardButton){
+            this._element.querySelector('.card__delete-icon').addEventListener('click', () => this._popupDeleteCardOpen());
+        }
     }
 
     _getTemplate(){
@@ -71,9 +76,6 @@ export default class Card {
         this._deleteCardButton = this._element.querySelector('.card__delete-icon');
         this._setEventListeners();
         this._checkCardDeleteButton();
-        if (this._deleteCardButton){
-            this._element.querySelector('.card__delete-icon').addEventListener('click', () => this._popupDeleteCardOpen());
-        }
         this._element.querySelector('.card__title').innerText = this._title;
         this._cardImage.src = this._image;
         this._cardImage.alt = this._title;
